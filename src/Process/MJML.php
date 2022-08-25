@@ -2,7 +2,7 @@
 
 namespace Asahasrabuddhe\LaravelMJML\Process;
 
-use Html2Text\Html2Text;
+use Soundasleep\Html2Text;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\HtmlString;
 use Illuminate\View\View;
@@ -61,7 +61,6 @@ class MJML
      * Render the html content.
      *
      * @return HtmlString
-     *
      * @throws \Throwable
      */
     public function renderHTML()
@@ -70,14 +69,14 @@ class MJML
 
         File::put($this->path, $html);
 
-        $contentChecksum    = hash('sha256', $html);
+        $contentChecksum = hash('sha256', $html);
         $this->compiledPath = rtrim(config('view.compiled'), '/') . "/{$contentChecksum}.php";
 
-        if (! File::exists($this->compiledPath)) {
+        if (!File::exists($this->compiledPath)) {
             $this->process = Process::fromShellCommandline($this->buildCmdLineFromConfig());
             $this->process->run();
 
-            if (! $this->process->isSuccessful()) {
+            if (!$this->process->isSuccessful()) {
                 throw new ProcessFailedException($this->process);
             }
         }
@@ -89,7 +88,6 @@ class MJML
      * Render the text content.
      *
      * @return HtmlString
-     *
      * @throws \Html2Text\Html2TextException
      * @throws \Throwable
      */
