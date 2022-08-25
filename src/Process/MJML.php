@@ -2,10 +2,10 @@
 
 namespace Asahasrabuddhe\LaravelMJML\Process;
 
-use Soundasleep\Html2Text;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\HtmlString;
 use Illuminate\View\View;
+use Soundasleep\Html2Text;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
@@ -19,6 +19,7 @@ class MJML
     /**
      * @var View
      */
+
     protected $view;
 
     /**
@@ -49,6 +50,7 @@ class MJML
      */
     public function buildCmdLineFromConfig()
     {
+        //
         return implode(' ', [
             config('mjml.auto_detect_path') ? $this->detectBinaryPath() : config('mjml.path_to_binary'),
             $this->path,
